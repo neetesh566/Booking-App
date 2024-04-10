@@ -7,6 +7,9 @@ export default {
 
   theme: {
     extend: {},
+    conatiner:{
+      padding:"10rem",
+    }
   },
   plugins: [],
 }
