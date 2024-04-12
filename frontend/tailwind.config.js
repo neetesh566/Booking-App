@@ -8,8 +8,10 @@ export default {
   theme: {
     extend: {},
     conatiner:{
-      padding:"10rem",
-    }
+      padding:{
+        md:"10rem"
+      },
+    },
   },
   plugins: [],
 }
