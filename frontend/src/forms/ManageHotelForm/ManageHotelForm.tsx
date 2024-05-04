@@ -4,6 +4,8 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestSection from "./GuestsSection";
 import ImageSection from "./ImagesSection";
+import { HotelType } from "../../../../backend/src/shared/type";
+import { useEffect } from "react";
 
 export type HotelFormData = {
   name: string;
@@ -20,14 +22,18 @@ export type HotelFormData = {
   childCount: number;
 };
 
-type Props={
-  onSave:(hotelFormData:FormData)=>void
-  isLoading:boolean
-}
+type Props = {
+  hotel?: HotelType;
+  onSave: (hotelFormData: FormData) => void;
+  isLoading: boolean;
+};
 
-const ManageHotelForm = ({onSave, isLoading}:Props) => {
+const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
   const formMethods = useForm<HotelFormData>();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+  useEffect(() => {
+    reset(hotel);
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
     const formData = new FormData();
@@ -62,11 +68,11 @@ const ManageHotelForm = ({onSave, isLoading}:Props) => {
         <ImageSection />
         <span className="flex justify-end px-60">
           <button
-          disabled={isLoading}
+            disabled={isLoading}
             type="submit"
             className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl disabled:bg-gray-500"
           >
-            {isLoading ? "Saving...":"Save"}
+            {isLoading ? "Saving..." : "Save"}
           </button>
         </span>
       </form>
